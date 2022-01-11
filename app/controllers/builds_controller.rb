@@ -1,5 +1,5 @@
 class BuildsController < ApplicationController
-  before_action :set_build, only: [:show, :update, :destroy]
+  before_action :set_build, only: [:show]
 
   # GET /builds
   def index
@@ -13,39 +13,10 @@ class BuildsController < ApplicationController
     render json: @build
   end
 
-  # POST /builds
-  def create
-    @build = Build.new(build_params)
-
-    if @build.save
-      render json: @build, status: :created, location: @build
-    else
-      render json: @build.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /builds/1
-  def update
-    if @build.update(build_params)
-      render json: @build
-    else
-      render json: @build.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /builds/1
-  def destroy
-    @build.destroy
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_build
-      @build = Build.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def build_params
-      params.require(:build).permit(:name, :game_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_build
+    @build = Build.find(params[:id])
+  end
 end
