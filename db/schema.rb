@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_11_181742) do
+ActiveRecord::Schema.define(version: 2022_01_11_183252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,11 +23,29 @@ ActiveRecord::Schema.define(version: 2022_01_11_181742) do
     t.index ["game_id"], name: "index_bosses_on_game_id"
   end
 
+  create_table "builds", force: :cascade do |t|
+    t.string "name"
+    t.bigint "game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_builds_on_game_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "weapons", force: :cascade do |t|
+    t.string "name"
+    t.bigint "game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_weapons_on_game_id"
+  end
+
   add_foreign_key "bosses", "games"
+  add_foreign_key "builds", "games"
+  add_foreign_key "weapons", "games"
 end
